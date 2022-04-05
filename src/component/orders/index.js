@@ -61,11 +61,11 @@ export function Orders() {
     return (
        <>
            <Box display="grid" gridTemplateColumns="repeat(12, 1fr)"  style={{height:570}} gap={2}>
-               <Box gridColumn="span 3" style={{backgroundColor:'#AFBED0',padding:10}}>
+               <Box gridColumn="span 3" style={{backgroundColor:'#AFBED0',padding:10, borderRadius:5}}>
                    {/* TODO 根据数据渲染订单列表*/}
                     <OrderItem selected={false} orderData={{status:'finish'}}/>
                </Box>
-               <Box gridColumn="span 9"  style={{backgroundColor:'#AFBED0',padding:10}}>
+               <Box gridColumn="span 9"  style={{backgroundColor:'#AFBED0',padding:10, borderRadius:5}}>
                    <div style={{backgroundColor:'rgb(177 203 226)',height:213}}>
                         <p style={{height:30,padding:'5px 20px',lineHeight:'30px',backgroundColor:'#283A4D'}}>
                             订单编号：.....

@@ -28,7 +28,7 @@ const rows = [
 
 export function Emergency() {
     return(
-        <Box sx={{width:'100%',height:554,overflowY:'auto',backgroundColor:'#AFBED0',padding:1}}>
+        <Box sx={{width:'100%',height:554,overflowY:'auto',backgroundColor:'#AFBED0',padding:1, borderRadius:1}}>
             <Box display='grid' gridTemplateColumns="repeat(12, 1fr)" style={{height:250,marginBottom:16}}>
                 <Box  gridColumn="span 6" style={{position:'relative'}}>
                     <PieCharts width={500} height={280} style={{position:'absolute',left:-70}}/>
@@ -77,7 +77,7 @@ export function Emergency() {
                                 <TableCell align="right">Protein&nbsp;(g)</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        <TableBody sx={{height:250,overflowY:'auto'}}>
                             {rows.map((row) => (
                                 <TableRow
                                     key={row.name+Math.random()}

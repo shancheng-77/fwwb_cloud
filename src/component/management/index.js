@@ -26,7 +26,7 @@ const rows = [
 ];
 export function Management() {
     return (
-        <Box sx={{width:'100%',height:554,overflowY:'auto',backgroundColor:'#AFBED0',padding:1}}>
+        <Box sx={{width:'100%',height:554,overflowY:'auto',backgroundColor:'#AFBED0',padding:1, borderRadius:1}}>
             <Box sx={{textAlign:'right',p:1}}>
                 <Button variant="contained" sx={{mr:5}}>创建任务</Button>
                 <Button variant="contained" sx={{mr:1}}>创建工序</Button>

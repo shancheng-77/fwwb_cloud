@@ -19,7 +19,7 @@ const getData = (length) => {
 export function Edge() {
     const edgeData = getData(10);
     return (
-        <Box sx={{width:'100%',maxHeight:554,overflowY:'auto',backgroundColor:'#AFBED0',padding:1}}>
+        <Box sx={{width:'100%',maxHeight:554,overflowY:'auto',backgroundColor:'#AFBED0',padding:1, borderRadius:1}}>
             <Grid container rowSpacing={2} columnSpacing={2} >
                 {
                     edgeData.map((d,i) => {
