@@ -202,6 +202,7 @@ export function AddOrderDialog1({open,setOpen}) {
         const data = typeValue === '自动分配' ? getAutoValue() : getManualValue()
         const url =  typeValue === '自动分配' ? automaticUrl : manualUrl
         const res = await fetchPost(url,[data])
+        // TODO 弹出完成的消息框
         console.log(res)
     }
 

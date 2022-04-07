@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="68847c59-4737-4cc5-94e0-684b7ad7c8ae" name="变更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/log/MyForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/log/MyForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/orders/AddOrderDialog1.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/orders/AddOrderDialog1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/orders/MyTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/orders/MyTable.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/orders/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/orders/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/requestAddress/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/requestAddress/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +68,9 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\webstrom\服务外包\cloud\src\component\echarts" />
     </key>
+    <key name="es6.move.members.recent.items">
+      <recent name="E:\webstrom\服务外包\cloud\src\component\orders\orderItem.js" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="AddOrderDialog.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/component/orders/AddOrderDialog.js" working-dir="$PROJECT_DIR$/src/component/orders">
@@ -92,7 +96,7 @@
       <workItem from="1649118567082" duration="19149000" />
       <workItem from="1649205392266" duration="1335000" />
       <workItem from="1649206818137" duration="7167000" />
-      <workItem from="1649298191208" duration="5359000" />
+      <workItem from="1649298191208" duration="16810000" />
     </task>
     <servers />
   </component>

@@ -1,7 +1,7 @@
 const baseUrl = '192.168.0.100:8083' ;
 export const automaticUrl = 'http://'+baseUrl + '/orders/automatic';
 export const manualUrl ='http://'+ baseUrl + '/orders/manual';
-
+export const historyOrderUrl = 'http://'+ baseUrl + '/orders/history'
 export const orderWebSocket = 'ws://'+baseUrl+'/order/{userId}';
 
 export const fetchPost = async (url,data) => {
@@ -18,5 +18,9 @@ export const fetchPost = async (url,data) => {
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         body: JSON.stringify(data)
     })
+    return await response.json()
+}
+export const fetchGet = async (url,data) => {
+    const response =  await fetch(url)
     return await response.json()
 }

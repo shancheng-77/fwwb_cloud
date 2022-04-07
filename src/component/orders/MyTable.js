@@ -6,34 +6,152 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import * as React from "react";
+import {useEffect, useState} from "react";
+import {Button} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Collapse from "@mui/material/Collapse";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
+import {AppWithRouter} from "../../AppWithRouter";
+const lightTheme = createTheme({
+    palette: {
+        mode: 'light',
+    },
+});
 
-export function MyTable({rows=[]}) {
+const getMinTime = (timeArr) => {
+    return timeArr.sort((a,b) => a>b?1:-1)[0]
+}
+const getMaxTime = (timeArr) => {
+    return timeArr.sort((a,b) => a>b?1:-1)[timeArr.length-1]
+}
+// 对时间进行格式化
+const getTime = (time) => (new Date(time)).getTime();
+const isUndefined = (value) => (value === void 0)
+// 历史订单和正在进行订单格式不一样
+const initTime = (time) => {
+    if (!isUndefined(time)) {
+        let date = new Date(time);
+        let year = date.getFullYear();
+        let month = date.getMonth()+1;
+        let day = date.getDay();
+
+        let hour = date.getHours();
+        let minutes = date.getMinutes();
+        let seconds = date.getSeconds();
+
+        return year+'-'+month+'-'+day+' '+hour+':'+minutes+':'+seconds;
+    }
+    return  '--'
+}
+
+const getData = (data) => {
+    return Object.keys(data).map((k,i) => {
+        let value = data[k];
+        let startTime =  getMinTime(value.map(n => n.startTime));
+        let finishTime =  getMaxTime(value.map(n => n.finishTime));
+        let costTime = isUndefined(finishTime)||isUndefined(startTime) ?'--' :(getTime(finishTime) - getTime(startTime)) / (1000) //转换成秒
+        return {
+            name: k,
+            startTime : initTime(startTime),
+            finishTime : initTime(finishTime),
+            costTime: costTime,
+            process: value,
+            key: i
+        }
+    })
+}
+
+// TODO 将open转为外部属性
+const Row = (props,openRow,setOpenRow) => {
+    const { row } = props;
+    const [open, setOpen] = useState(false);
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+        <>
+            <TableRow
+                key={row.name+Math.random()}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } ,height:50,backgroundColor:'#eee'}}
+            >
+                <TableCell component="th" scope="row" style={{color:'black'}}>
+                    {row.name}
+                </TableCell>
+                <TableCell align="center" style={{color:'black'}}>{row.costTime}</TableCell>
+                <TableCell align="center" style={{color:'black'}}>{row.startTime}</TableCell>
+                <TableCell align="center" style={{color:'black'}}>{row.finishTime}</TableCell>
+                <TableCell align="center" style={{color:'black'}}>{'100%'}</TableCell>
+                <TableCell align="center" style={{color:'black'}}>
+                    <Button variant="contained" size={"small"}
+                            onClick={() => setOpen(!open)}
+                    >
+                        查看工序
+                    </Button>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell style={{ padding:0,}} colSpan={6}>
+                    <Collapse in={open} timeout="auto" unmountOnExit >
+                        <TableContainer component={Paper} >
+                            {/*<ThemeProvider theme={lightTheme}>*/}
+                                <Table size="small" style={{border:0}}>
+                                    <TableHead >
+                                        <TableRow>
+                                            <TableCell  align="center" >名称</TableCell>
+                                            <TableCell  align="center" >状态</TableCell>
+                                            <TableCell  align="center" >花费时间</TableCell>
+                                            <TableCell  align="center" >执行设备名称</TableCell>
+                                            <TableCell  align="center" >开始时间</TableCell>
+                                            <TableCell  align="center" >终止时间</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {row.process.map((processRow) => (
+                                            <TableRow key={processRow.name} >
+                                                <TableCell align="center">{processRow.name}</TableCell>
+                                                <TableCell align="center">{processRow.status}</TableCell>
+                                                <TableCell align="center">{processRow.cost}</TableCell>
+                                                <TableCell align="center">{processRow.executeDeviceName}</TableCell>
+                                                <TableCell align="center">{initTime(processRow?.startTime)}</TableCell>
+                                                <TableCell align="center">{initTime(processRow?.finishTime)}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            {/*</ThemeProvider>*/}
+                        </TableContainer>
+                    </Collapse>
+                </TableCell>
+            </TableRow>
+        </>
+    );
+}
+
+export function MyTable({rows={}}) {
+
+    const data = getData(rows)
+
+    // useEffect(() => {
+    //     console.log(data)
+    // })
+
+    return (
+        <TableContainer component={Paper} style={{backgroundColor:'rgb(175, 190, 208)'}}>
+            <Table sx={{ maxWidth: 795 }} size="small" aria-label="a dense table">
                 <TableHead style={{backgroundColor:'#283A4D',height:50}}>
                     <TableRow>
-                        <TableCell>Dessert (100g serving)</TableCell>
-                        <TableCell align="right">Calories</TableCell>
-                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                        <TableCell>名称</TableCell>
+                        <TableCell align="center">花费时间(s)</TableCell>
+                        <TableCell align="center">开始时间</TableCell>
+                        <TableCell align="center">结束时间</TableCell>
+                        <TableCell align="center">完成进度</TableCell>
+                        <TableCell align="center">工序</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <TableRow
-                            key={row.name+Math.random()}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } ,height:50,backgroundColor:'#eee'}}
-                        >
-                            <TableCell component="th" scope="row" style={{color:'black'}}>
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="right" style={{color:'black'}}>{row.calories}</TableCell>
-                            <TableCell align="right" style={{color:'black'}}>{row.fat}</TableCell>
-                            <TableCell align="right" style={{color:'black'}}>{row.carbs}</TableCell>
-                            <TableCell align="right" style={{color:'black'}}>{row.protein}</TableCell>
-                        </TableRow>
+                    {data.map((row) => (
+                       <Row row={row} key={row.name+Math.random()}/>
                     ))}
                 </TableBody>
             </Table>
