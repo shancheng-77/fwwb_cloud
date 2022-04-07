@@ -3,13 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="68847c59-4737-4cc5-94e0-684b7ad7c8ae" name="变更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/egde/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/egde/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/emergency/emergency.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/emergency/emergency.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/log/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/log/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/management/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/management/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/log/MyForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/log/MyForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/orders/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/orders/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +32,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="27E5F5dTJ1COPopVnWfrQobQsDD" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -69,6 +68,16 @@
       <recent name="E:\webstrom\服务外包\cloud\src\component\echarts" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="AddOrderDialog.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/component/orders/AddOrderDialog.js" working-dir="$PROJECT_DIR$/src/component/orders">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.AddOrderDialog.js" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
@@ -80,7 +89,10 @@
       <workItem from="1648872346189" duration="357000" />
       <workItem from="1648872756233" duration="14666000" />
       <workItem from="1648979235979" duration="8689000" />
-      <workItem from="1649118567082" duration="13332000" />
+      <workItem from="1649118567082" duration="19149000" />
+      <workItem from="1649205392266" duration="1335000" />
+      <workItem from="1649206818137" duration="7167000" />
+      <workItem from="1649298191208" duration="5359000" />
     </task>
     <servers />
   </component>
@@ -92,7 +104,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

@@ -11,12 +11,11 @@ const lightTheme = createTheme({
         mode: 'light',
     },
 });
-const InputWithLabel = (props) => {
-    let {children,name} = props;
-
+export const InputWithLabel = (props) => {
+    let {children,name,style,alignItems='center'} = props;
     return (
-        <div style={{display:'flex',alignItems:'center'}}>
-            <span>{name}：</span>
+        <div style={{display:'flex',alignItems:alignItems,...style}}>
+            <span style={{ textAlign: 'justify',width:80}}>{name}：</span>
             {children}
         </div>
 

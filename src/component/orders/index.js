@@ -4,14 +4,10 @@ import waitUrl from '../../static/等待.png'
 import conductUrl from '../../static/进行中.png'
 import finishUrl from '../../static/完成.png'
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import {MyTable} from "./MyTable";
+// import {AddOrderDialog} from "./AddOrderDialog";
+import {useEffect, useState} from "react";
+import {AddOrderDialog1} from "./AddOrderDialog1";
 
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -32,6 +28,11 @@ const rows = [
 const OrderItem = ({orderData={},selected=false}) => {
     const {status='wait'} = orderData;
     const bgc = selected ? '#5276A6' : '#1F2D42';
+
+    useEffect(() => {
+
+    })
+
 
     const statusImgUrl = (status) => {
         if (status === 'wait') return waitUrl
@@ -54,14 +55,19 @@ const OrderItem = ({orderData={},selected=false}) => {
 }
 
 export function Orders() {
-
+    const [isAddOrderDialogOpen,setIsAddOrderDialogOpen] = useState(false);
     // 订单列表数据数据
     const OrderListData = [];
 
     return (
        <>
            <Box display="grid" gridTemplateColumns="repeat(12, 1fr)"  style={{height:570}} gap={2}>
-               <Box gridColumn="span 3" style={{backgroundColor:'#AFBED0',padding:10, borderRadius:5}}>
+               <Box gridColumn="span 3" style={{backgroundColor:'#AFBED0',padding:10, borderRadius:5,position:'relative'}}>
+                   <span style={{position:"absolute",top:0,right:0,width:20,height:20,backgroundColor:'#2a385d',lineHeight:'20px',textAlign:"center",cursor:"pointer"}}
+                            onClick={() => setIsAddOrderDialogOpen(true)}
+                   >
+                    +
+                   </span>
                    {/* TODO 根据数据渲染订单列表*/}
                     <OrderItem selected={false} orderData={{status:'finish'}}/>
                </Box>
@@ -86,6 +92,7 @@ export function Orders() {
                    </div>
                </Box>
            </Box>
+           <AddOrderDialog1 open={isAddOrderDialogOpen} setOpen={(bol) => setIsAddOrderDialogOpen(bol)}/>
        </>
     )
 }

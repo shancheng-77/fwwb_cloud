@@ -9,6 +9,17 @@ ul,ol {
 p {
   color: #eee;
 }
+.hover {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
+  text-align: center;
+}
+.hover:hover {
+
+  background-color: rgba(175, 167, 167, 0.73);
+}
 /*滚轮样式*/
 ::-webkit-scrollbar
 {
