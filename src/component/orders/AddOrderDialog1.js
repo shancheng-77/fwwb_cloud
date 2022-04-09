@@ -107,11 +107,10 @@ const ManualDistribute = ({data,sendData,error,setError}) => {
     },[edge0Data])
 
     return (
-        <Box style={{display:'flex',flexDirection:'column',justifyContent:"space-between",height:160}}>
+        <Box style={{display:'flex',flexDirection:'column',justifyContent:"space-between",height:50}}>
             <AutoDistribute data={edge0Data} sendData={setEdge0Data} error={error1} setError={setError1} name='Edge0'/>
             {/*<AutoDistribute data={edge1Data} sendData={setEdge1Data} error={error2} setError={setError2} name='Edge1'/>*/}
             {/*<AutoDistribute data={edge2Data} sendData={setEdge2Data} error={error3} setError={setError3} name='Edge0'/>*/}
-            <Button onClick={() => console.log(edge0Data)}> 点击 </Button>
         </Box>
     )
 }

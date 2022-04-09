@@ -2,11 +2,10 @@
 import * as echarts from 'echarts';
 import {useEffect, useState} from "react";
 const  defaultData =  [
-    { value: 1048, name: 'Search Engine' },
-    { value: 735, name: 'Direct' },
-    { value: 580, name: 'Email' },
-    { value: 484, name: 'Union Ads' },
-    { value: 300, name: 'Video Ads' }
+    { value: 10, name: '程序故障' },
+    { value: 7, name: '电器故障' },
+    { value: 5, name: '机械故障' },
+    { value: 4, name: '其他故障' },
 ]
 
 export function PieCharts({style,data=defaultData,width=150,height=150}) {

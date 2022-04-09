@@ -1,9 +1,16 @@
 const baseUrl = '192.168.0.100:8083' ;
 export const automaticUrl = 'http://'+baseUrl + '/orders/automatic';
 export const manualUrl ='http://'+ baseUrl + '/orders/manual';
-export const historyOrderUrl = 'http://'+ baseUrl + '/orders/history'
-export const orderWebSocket = 'ws://'+baseUrl+'/order/{userId}';
+export const historyOrderUrl = 'http://'+ baseUrl + '/orders/history';
+export const edgesUrl = 'http://' + baseUrl + '/edges';
+export const jobsUrl = 'http://' + baseUrl + '/jobs';
+export const logUrl = 'http://' + baseUrl + '/operationLogs'
+export const allErrorsUrl = 'http://' + baseUrl + '/device/errors'
 
+const userId = Math.floor(Math.random()*10)
+export const orderWebSocket = 'ws://'+baseUrl+'/order/'+userId;
+export const edgeWebSocket = 'ws://'+baseUrl+'/edge/'+userId;
+export const noticeWebSocket = 'ws://'+baseUrl+'/notice/'+userId;
 export const fetchPost = async (url,data) => {
     const response =  await fetch(url,{
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -20,7 +27,7 @@ export const fetchPost = async (url,data) => {
     })
     return await response.json()
 }
-export const fetchGet = async (url,data) => {
+export const fetchGet = async (url) => {
     const response =  await fetch(url)
     return await response.json()
 }

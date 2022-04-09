@@ -66,9 +66,20 @@ const getData = (data) => {
 }
 
 // TODO 将open转为外部属性
-const Row = (props,openRow,setOpenRow) => {
-    const { row } = props;
-    const [open, setOpen] = useState(false);
+const Row = (props) => {
+    const { row ,index,openList,setOpen} = props;
+    // useEffect(() => {
+    //     // console.log(openList)
+    // },[])
+    const open = openList.includes(index)
+    // const [open, setOpen] = useState(false);
+    const setRow = () => {
+        if (open) {
+            setOpen(() => openList.filter(n => n !== index))
+        }else {
+            setOpen([...openList,index])
+        }
+    }
     return (
         <>
             <TableRow
@@ -84,9 +95,9 @@ const Row = (props,openRow,setOpenRow) => {
                 <TableCell align="center" style={{color:'black'}}>{'100%'}</TableCell>
                 <TableCell align="center" style={{color:'black'}}>
                     <Button variant="contained" size={"small"}
-                            onClick={() => setOpen(!open)}
+                            onClick={setRow}
                     >
-                        查看工序
+                        {open ? '收起工序' : '查看工序'}
                     </Button>
                 </TableCell>
             </TableRow>
@@ -128,13 +139,13 @@ const Row = (props,openRow,setOpenRow) => {
     );
 }
 
-export function MyTable({rows={}}) {
+export function MyTable({rows={},openList=[],setOpenList}) {
 
     const data = getData(rows)
 
-    // useEffect(() => {
-    //     console.log(data)
-    // })
+    useEffect(() => {
+        // console.log(openList)
+    })
 
     return (
         <TableContainer component={Paper} style={{backgroundColor:'rgb(175, 190, 208)'}}>
@@ -150,8 +161,8 @@ export function MyTable({rows={}}) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map((row) => (
-                       <Row row={row} key={row.name+Math.random()}/>
+                    {data.map((row,i) => (
+                       <Row row={row} key={row.name+Math.random()} index={i} openList={openList} setOpen={setOpenList}/>
                     ))}
                 </TableBody>
             </Table>

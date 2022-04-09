@@ -8,6 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import {PieCharts} from "../echarts/PieCharts";
+import {useEffect, useState} from "react";
+import {allErrorsUrl, fetchGet} from "../../requestAddress";
 
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -25,8 +27,28 @@ const rows = [
     createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
+const errObjectToArr = (object) => {
+   let arr = Object.keys(object).map((k,i) => {
+        return object[k].map((n => {
+            return {
+                edgeName: k,
+                ...n
+            }
+        }))
+    })
+    return arr.length === 0 ? [] : arr[0]
+}
 
 export function Emergency() {
+    const [errorData,setErrorData] = useState([]);
+    // 请求信息
+    useEffect(() => {
+        fetchGet(allErrorsUrl).then(res => {
+            console.log(errObjectToArr(res.payload))
+            setErrorData(() => errObjectToArr(res.payload))
+        })
+    },[])
+
     return(
         <Box sx={{width:'100%',height:554,overflowY:'auto',backgroundColor:'#AFBED0',padding:1, borderRadius:1}}>
             <Box display='grid' gridTemplateColumns="repeat(12, 1fr)" style={{height:250,marginBottom:16}}>
@@ -38,26 +60,24 @@ export function Emergency() {
                         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                             <TableHead style={{backgroundColor:'#283A4D',height:50}}>
                                 <TableRow>
-                                    <TableCell>Dessert (100g serving)</TableCell>
-                                    <TableCell align="right">Calories</TableCell>
-                                    <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                                    <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                                    <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                                    <TableCell align="center">序号</TableCell>
+                                    <TableCell align="center">设备编号</TableCell>
+                                    <TableCell align="center">处理人</TableCell>
+                                    <TableCell align="center">结果</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows.map((row) => (
+                                {rows.map((row,i) => (
                                     <TableRow
                                         key={row.name+Math.random()}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } ,height:50,backgroundColor:'#eee'}}
                                     >
-                                        <TableCell component="th" scope="row" style={{color:'black'}}>
-                                            {row.name}
+                                        <TableCell component="th" scope="row" style={{color:'black'}} align="center">
+                                            {i}
                                         </TableCell>
-                                        <TableCell align="right" style={{color:'black'}}>{row.calories}</TableCell>
-                                        <TableCell align="right" style={{color:'black'}}>{row.fat}</TableCell>
-                                        <TableCell align="right" style={{color:'black'}}>{row.carbs}</TableCell>
-                                        <TableCell align="right" style={{color:'black'}}>{row.protein}</TableCell>
+                                        <TableCell align="center" style={{color:'black'}}>--</TableCell>
+                                        <TableCell align="center" style={{color:'black'}}>--</TableCell>
+                                        <TableCell align="center" style={{color:'black'}}>--</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -70,26 +90,27 @@ export function Emergency() {
                     <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                         <TableHead style={{backgroundColor:'#283A4D',height:50}}>
                             <TableRow>
-                                <TableCell>Dessert (100g serving)</TableCell>
-                                <TableCell align="right">Calories</TableCell>
-                                <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                                <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                                <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                                <TableCell align="center">编号</TableCell>
+                                <TableCell align="center">所属边端</TableCell>
+                                <TableCell align="center">设备编码</TableCell>
+                                <TableCell align="center">设备名称</TableCell>
+                                <TableCell align="center">故障说明</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody sx={{height:250,overflowY:'auto'}}>
-                            {rows.map((row) => (
+                            {errorData.map((row) => (
+                                // console.log(row)
                                 <TableRow
-                                    key={row.name+Math.random()}
+                                    key={row.id+Math.random()}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } ,height:50,backgroundColor:'#eee'}}
                                 >
-                                    <TableCell component="th" scope="row" style={{color:'black'}}>
-                                        {row.name}
+                                    <TableCell component="th" scope="row" align="center" style={{color:'black'}}>
+                                        {row.id}
                                     </TableCell>
-                                    <TableCell align="right" style={{color:'black'}}>{row.calories}</TableCell>
-                                    <TableCell align="right" style={{color:'black'}}>{row.fat}</TableCell>
-                                    <TableCell align="right" style={{color:'black'}}>{row.carbs}</TableCell>
-                                    <TableCell align="right" style={{color:'black'}}>{row.protein}</TableCell>
+                                    <TableCell align="center" style={{color:'black'}}>{row?.edgeName}</TableCell>
+                                    <TableCell align="center" style={{color:'black'}}>{row?.deviceInfo?.code}</TableCell>
+                                    <TableCell align="center" style={{color:'black'}}>{row?.deviceInfo?.deviceType?.name}</TableCell>
+                                    <TableCell align="center" style={{color:'black'}}>{row?.comment}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

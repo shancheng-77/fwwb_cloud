@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import {MyForm} from "./MyForm";
 import * as React from "react";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {Button} from "@mui/material";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
@@ -10,6 +10,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
+import {fetchGet, logUrl} from "../../requestAddress";
 
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -28,6 +29,14 @@ const rows = [
 ];
 
 export function Log() {
+    const [logData,setLogData] = useState([]);
+    // 请求数据
+    useEffect(() => {
+        fetchGet(logUrl).then(res => {
+            // console.log(res.payload)
+            setLogData(res.payload.slice(0,10))
+        })
+    },[])
     const searchInTable = (value) => {
         console.log(value)
     }
@@ -50,26 +59,28 @@ export function Log() {
                         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                             <TableHead style={{backgroundColor:'#283A4D',height:50}}>
                                 <TableRow>
-                                    <TableCell>Dessert (100g serving)</TableCell>
-                                    <TableCell align="right">Calories</TableCell>
-                                    <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                                    <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                                    <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                                    <TableCell align="center">日志编号</TableCell>
+                                    <TableCell align="center">名称</TableCell>
+                                    <TableCell align="center">操作类型</TableCell>
+                                    <TableCell align="center">请求方式</TableCell>
+                                    <TableCell align="center">操作状态</TableCell>
+                                    <TableCell align="center">完成时间</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows.map((row) => (
+                                {logData.map((row) => (
                                     <TableRow
-                                        key={row.name+Math.random()}
+                                        key={row.id+Math.random()}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } ,height:50,backgroundColor:'#eee'}}
                                     >
-                                        <TableCell component="th" scope="row" style={{color:'black'}}>
-                                            {row.name}
+                                        <TableCell component="th" scope="row" style={{color:'black'}} align="center">
+                                            {row.id}
                                         </TableCell>
-                                        <TableCell align="right" style={{color:'black'}}>{row.calories}</TableCell>
-                                        <TableCell align="right" style={{color:'black'}}>{row.fat}</TableCell>
-                                        <TableCell align="right" style={{color:'black'}}>{row.carbs}</TableCell>
-                                        <TableCell align="right" style={{color:'black'}}>{row.protein}</TableCell>
+                                        <TableCell align="center" style={{color:'black'}}>{row.title}</TableCell>
+                                        <TableCell align="center" style={{color:'black'}}>{row.businessType}</TableCell>
+                                        <TableCell align="center" style={{color:'black'}}>{row.requestMethod}</TableCell>
+                                        <TableCell align="center" style={{color:'black'}}>{row.status}</TableCell>
+                                        <TableCell align="center" style={{color:'black'}}>{row.operationTime}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
