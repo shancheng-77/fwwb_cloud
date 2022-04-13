@@ -6,7 +6,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {Button} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -16,6 +16,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {AppWithRouter} from "../../AppWithRouter";
+import {fetchGet, orderMappingUrl} from "../../requestAddress";
 const lightTheme = createTheme({
     palette: {
         mode: 'light',
@@ -29,19 +30,25 @@ const getMaxTime = (timeArr) => {
     return timeArr.sort((a,b) => a>b?1:-1)[timeArr.length-1]
 }
 // 对时间进行格式化
-const getTime = (time) => (new Date(time)).getTime();
-const isUndefined = (value) => (value === void 0)
+export const getTime = (time) => (new Date(time)).getTime();
+export const isUndefined = (value) => (value === void 0)
 // 历史订单和正在进行订单格式不一样
-const initTime = (time) => {
+export const initTime = (time) => {
+    const a = (number) => {
+        if (number < 10) {
+            return '0' +number
+        }
+        return number
+    }
     if (!isUndefined(time)) {
         let date = new Date(time);
         let year = date.getFullYear();
-        let month = date.getMonth()+1;
-        let day = date.getDay();
+        let month = a(date.getMonth()+1);
+        let day = a(date.getDay());
 
-        let hour = date.getHours();
-        let minutes = date.getMinutes();
-        let seconds = date.getSeconds();
+        let hour = a(date.getHours());
+        let minutes = a(date.getMinutes());
+        let seconds = a(date.getSeconds());
 
         return year+'-'+month+'-'+day+' '+hour+':'+minutes+':'+seconds;
     }
@@ -65,12 +72,21 @@ const getData = (data) => {
     })
 }
 
-// TODO 将open转为外部属性
+//  将open转为外部属性
 const Row = (props) => {
-    const { row ,index,openList,setOpen} = props;
+    const { row ,index,openList,setOpen,progress,orderMapping} = props;
+
+    // const {name,setName} = useState('');
+    const getChineseName = (row,object) => {
+        const b = row.name.includes('&&');
+        const s = b ? row.name.split('&&')[1] : row.name
+        return object[s.split('__')[0]]
+    }
+    const nameValue = getChineseName(row,orderMapping)
     // useEffect(() => {
-    //     // console.log(openList)
-    // },[])
+    //     console.log(getChineseName(row,orderMapping))
+    // },[row,orderMapping])
+
     const open = openList.includes(index)
     // const [open, setOpen] = useState(false);
     const setRow = () => {
@@ -86,13 +102,13 @@ const Row = (props) => {
                 key={row.name+Math.random()}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } ,height:50,backgroundColor:'#eee'}}
             >
-                <TableCell component="th" scope="row" style={{color:'black'}}>
-                    {row.name}
+                <TableCell component="th" scope="row" style={{color:'black'}} width={100}>
+                    {nameValue}
                 </TableCell>
                 <TableCell align="center" style={{color:'black'}}>{row.costTime}</TableCell>
                 <TableCell align="center" style={{color:'black'}}>{row.startTime}</TableCell>
                 <TableCell align="center" style={{color:'black'}}>{row.finishTime}</TableCell>
-                <TableCell align="center" style={{color:'black'}}>{'100%'}</TableCell>
+                <TableCell align="center" style={{color:'black'}}>{(progress*100).toFixed(0)+'%'}</TableCell>
                 <TableCell align="center" style={{color:'black'}}>
                     <Button variant="contained" size={"small"}
                             onClick={setRow}
@@ -120,7 +136,7 @@ const Row = (props) => {
                                     <TableBody>
                                         {row.process.map((processRow) => (
                                             <TableRow key={processRow.name} >
-                                                <TableCell align="center">{processRow.name}</TableCell>
+                                                <TableCell align="center">{processRow.desc}</TableCell>
                                                 <TableCell align="center">{processRow.status}</TableCell>
                                                 <TableCell align="center">{processRow.cost}</TableCell>
                                                 <TableCell align="center">{processRow.executeDeviceName}</TableCell>
@@ -139,14 +155,22 @@ const Row = (props) => {
     );
 }
 
-export function MyTable({rows={},openList=[],setOpenList}) {
+export function MyTable({rows={},openList=[],setOpenList,orderProgress=[]}) {
 
     const data = getData(rows)
-
+    const [orderMapping,setOrderMapping] = useState({});
+    // useEffect(() => {
+    //     console.log(rows)
+    // },[])
     useEffect(() => {
-        // console.log(openList)
-    })
-
+        fetchGet(orderMappingUrl).then(res => {
+            const data = res.payload.map(n => ({
+                [n.name] : n.desc
+            })).reduce((a,b) => ({...a,...b}),{})
+            // console.log(data,s)
+            setOrderMapping(data)
+        })
+    },[])
     return (
         <TableContainer component={Paper} style={{backgroundColor:'rgb(175, 190, 208)'}}>
             <Table sx={{ maxWidth: 795 }} size="small" aria-label="a dense table">
@@ -162,7 +186,14 @@ export function MyTable({rows={},openList=[],setOpenList}) {
                 </TableHead>
                 <TableBody>
                     {data.map((row,i) => (
-                       <Row row={row} key={row.name+Math.random()} index={i} openList={openList} setOpen={setOpenList}/>
+                       <Row row={row}
+                            key={row.name+Math.random()}
+                            index={i}
+                            openList={openList}
+                            setOpen={setOpenList}
+                            progress={orderProgress[i]}
+                            orderMapping={orderMapping}
+                       />
                     ))}
                 </TableBody>
             </Table>

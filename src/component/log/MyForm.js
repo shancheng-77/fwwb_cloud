@@ -74,7 +74,7 @@ export function MyForm({getValue}) {
                 </InputWithLabel>
                 <InputWithLabel name={'操作类型'}>
                     <FormControl>
-                        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                        <InputLabel id="demo-simple-select-label">操作类型</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
@@ -94,7 +94,7 @@ export function MyForm({getValue}) {
                 </InputWithLabel>
                 <InputWithLabel name={'操作状态'} >
                     <FormControl>
-                        <InputLabel id="demo-simple-select-label">type</InputLabel>
+                        <InputLabel id="demo-simple-select-label">操作状态</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
@@ -116,7 +116,7 @@ export function MyForm({getValue}) {
             <Box style={{display:'flex',justifyContent:'space-between'}}>
                 <InputWithLabel name={'开始时间'}>
                     <FormControl>
-                        <InputLabel id="demo-simple-select-label">startTime</InputLabel>
+                        <InputLabel id="demo-simple-select-label">开始时间</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
@@ -136,7 +136,7 @@ export function MyForm({getValue}) {
                 </InputWithLabel>
                 <InputWithLabel name={'终止时间'}>
                     <FormControl>
-                        <InputLabel id="demo-simple-select-label">endTime</InputLabel>
+                        <InputLabel id="demo-simple-select-label">结束时间</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"

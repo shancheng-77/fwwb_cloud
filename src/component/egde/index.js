@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import {EdgeItem} from "./EdgeItem";
 import {useEffect, useState} from "react";
 import {edgesUrl, edgeWebSocket, fetchGet, orderWebSocket} from "../../requestAddress";
+import {GanttCharts} from "../echarts/GanttCharts";
 
 const getRandom = () => {
     return Math.floor(Math.random()*100+1)
@@ -21,18 +22,22 @@ const getData = (length) => {
 export function Edge() {
     // const edgeData = getData(10);
     const [edgeData,setEdgeData] = useState([]);
+    const [errorNumber,setErrorNumber] = useState([])
     // 请求节点数据
     useEffect(() => {
         const socket = new WebSocket(edgeWebSocket);
         socket.addEventListener('message', function (event) {
             let data = JSON.parse(event.data)
             // console.log(data)
+            const errorNumber = Object.values(data.payload).map(n => Object.values(n.deviceTable.deviceStatusTable).filter(n => n!=='ERROR').length)
+            // console.log(errorNumber)
+            setErrorNumber(errorNumber)
             setEdgeData(Object.values(data.payload))
         });
         return () => {
             socket.close()
         }
-    })
+    },[])
 
     return (
         <Box sx={{width:'100%',height:554,overflowY:'auto',backgroundColor:'#AFBED0',padding:1, borderRadius:1}}>
@@ -41,12 +46,13 @@ export function Edge() {
                     edgeData.map((d,i) => {
                         return (
                             <Grid item xs={4} key={i}>
-                                <EdgeItem {...d}/>
+                                <EdgeItem {...d} errorNumber={errorNumber[i]}/>
                             </Grid>
                         )
                     })
                 }
             </Grid>
+
         </Box>
     )
 }

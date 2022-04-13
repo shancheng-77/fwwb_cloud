@@ -12,24 +12,25 @@ import * as React from "react";
 import {InputWithLabel} from "../log/MyForm";
 import {useCallback, useEffect, useState} from "react";
 import Box from "@mui/material/Box";
-import {automaticUrl, fetchPost, manualUrl} from "../../requestAddress";
+import {automaticUrl, fetchGet, fetchPost, jobsUrl, manualUrl} from "../../requestAddress";
 
-const AutoDistribute = ({data,sendData,error,setError,name='任务安排'}) => {
+const AutoDistribute = ({data,sendData,error,setError,name='任务安排',jobArr=[],jobNameArr=[]}) => {
 
     const [orderArr,setOrderArr] = useState(data); // 复选框选中内容
-    const [jobArr,setJobArr] = useState(['job0','job1','job2']); // job数组
+    // const [jobArr,setJobArr] = useState(['job0','job1','job2']); // job数组
     const [jobSelectedCount,setJobSelectedCount] = useState(Array(jobArr.length).fill(0))
 
     const sendNowData = (countArr) => {
-        const arr = jobArr.map((n, i) => {
+        const arr = jobNameArr.map((n, i) => {
             if (countArr[i] !== 0) {
                 let arr = [];
                 for (let j = 0; j < countArr[i]; j++) {
-                    arr.push(jobArr[i] + '__' + j)
+                    arr.push(jobNameArr[i] + '__' + j)
                 }
                 return arr;
             }else return ''
         }).flat(1).filter(n => n !== '')
+        console.log(arr)
         sendData(arr)
     }
 
@@ -43,6 +44,7 @@ const AutoDistribute = ({data,sendData,error,setError,name='任务安排'}) => {
     }
     const countReduce = (index) => {
         const selectedCountArr = jobSelectedCount.map((n,i) => i === index ? (n <= 0 ? n : n-1) : n)
+        console.log(selectedCountArr)
         setOrderArr(jobArr.filter((n,i) => selectedCountArr[i] !== 0));
         setJobSelectedCount([...selectedCountArr] )
     }
@@ -90,7 +92,7 @@ const AutoDistribute = ({data,sendData,error,setError,name='任务安排'}) => {
     )
 }
 
-const ManualDistribute = ({data,sendData,error,setError}) => {
+const ManualDistribute = ({data,sendData,error,setError,jobArr,jobNameArr}) => {
     const [edge0Data,setEdge0Data] = useState([])
     const [edge1Data,setEdge1Data] = useState([])
     const [edge2Data,setEdge2Data] = useState([])
@@ -101,14 +103,32 @@ const ManualDistribute = ({data,sendData,error,setError}) => {
 
     useEffect(() => {
         sendData({
-            'edge0' : edge0Data
+            'edge0' : edge0Data,
+            'edge1' : edge1Data
         })
         // console.log(edge0Data)
-    },[edge0Data])
+    },[edge0Data,edge1Data])
 
     return (
         <Box style={{display:'flex',flexDirection:'column',justifyContent:"space-between",height:50}}>
-            <AutoDistribute data={edge0Data} sendData={setEdge0Data} error={error1} setError={setError1} name='Edge0'/>
+            <AutoDistribute
+                data={edge0Data}
+                sendData={setEdge0Data}
+                error={error1}
+                setError={setError1}
+                name='Edge0'
+                jobArr={jobArr}
+                jobNameArr={jobNameArr}
+            />
+            <AutoDistribute
+                data={edge1Data}
+                sendData={setEdge1Data}
+                error={error1}
+                setError={setError1}
+                name='Edge1'
+                jobArr={jobArr}
+                jobNameArr={jobNameArr}
+            />
             {/*<AutoDistribute data={edge1Data} sendData={setEdge1Data} error={error2} setError={setError2} name='Edge1'/>*/}
             {/*<AutoDistribute data={edge2Data} sendData={setEdge2Data} error={error3} setError={setError3} name='Edge0'/>*/}
         </Box>
@@ -124,6 +144,9 @@ export function AddOrderDialog1({open,setOpen}) {
 
     const [autoData,setAutoData] = useState([]);
     const [manualData,setManualData] = useState({});
+    // job数组
+    const [jobArr,setJobArr] = useState([])
+    const [jobNameArr,setJobNameArr] = useState([])
     // 表单校验
     const [nameError,setNameError] = useState(false);
     const [typeError,setTypeError] = useState(false);
@@ -136,7 +159,16 @@ export function AddOrderDialog1({open,setOpen}) {
         setAutoData([]);
         setManualData({})
     },[typeValue])
-
+    // 请求job
+    // 请求数据
+    useEffect(() => {
+        fetchGet(jobsUrl).then(({payload=[]}) => {
+            console.log(payload)
+            const arr = payload.map(n => n.desc)
+            setJobArr(arr)
+            setJobNameArr(payload.map(n => n.name))
+        })
+    },[])
     const initError = () => {
         setNameError(false);
         setDecError(false);
@@ -268,8 +300,15 @@ export function AddOrderDialog1({open,setOpen}) {
                                     sendData={(data) => setAutoData(data)}
                                     error={autoError}
                                     setError={setAutoError}
+                                    jobArr={jobArr}
+                                    jobNameArr={jobNameArr}
                                 />
-                                : <ManualDistribute data={manualData} sendData={setManualData}/>
+                                : <ManualDistribute
+                                    data={manualData}
+                                    sendData={setManualData}
+                                    jobArr={jobArr}
+                                    jobNameArr={jobNameArr}
+                                />
                             }
                         </InputWithLabel>
                     </Box>

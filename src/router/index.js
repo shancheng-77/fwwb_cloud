@@ -4,6 +4,7 @@ import {Edge} from "../component/egde";
 import {Emergency} from "../component/emergency/emergency";
 import {Log} from "../component/log";
 import {Equipment} from "../component/equipment";
+import {EdgeOrder} from "../component/edgeOrder";
 
 export const router = [
     {
@@ -23,6 +24,12 @@ export const router = [
         name:'设备',
         item:false,
         component:<Equipment/>
+    },
+    {
+        path:'/edgeOrder',
+        name:'设备',
+        item:false,
+        component:<EdgeOrder/>
     },
     {
         path:'/management',

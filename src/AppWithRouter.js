@@ -3,6 +3,7 @@ import './App.css';
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import {router} from "./router";
 import {Main} from "./views/main";
+import {Login} from "./views/login";
 export function AppWithRouter() {
     return (
         <BrowserRouter>
@@ -10,6 +11,10 @@ export function AppWithRouter() {
                 <Route
                     path="/"
                     element={<Navigate to="/orders" />}
+                />
+                <Route
+                    path="/login"
+                    element={<Login/>}
                 />
                 <Route path='/' element={<Main/>} >
                     {router.map(route => {

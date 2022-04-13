@@ -3,10 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="68847c59-4737-4cc5-94e0-684b7ad7c8ae" name="变更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppWithRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppWithRouter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/echarts/PieCharts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/echarts/PieCharts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/echarts/ProgressBarChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/echarts/ProgressBarChart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/egde/EdgeItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/egde/EdgeItem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/egde/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/egde/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/emergency/emergency.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/emergency/emergency.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/equipment/EquipmentItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/equipment/EquipmentItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/equipment/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/equipment/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/log/MyForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/log/MyForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/log/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/log/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/management/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/management/index.js" afterDir="false" />
@@ -39,6 +43,23 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/requestAddress/index.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/component/echarts/CateGoryCharts.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/component/egde/index.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/component/log/MyForm.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/component/equipment/index.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/component/egde/EdgeItem.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/component/equipment/EquipmentItem.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/component/echarts/PieCharts.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/App.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/component/orders/MyTable.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/component/emergency/emergency.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/component/orders/index.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/AppWithRouter.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/views/main/index.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/component/log/index.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -109,7 +130,14 @@
       <workItem from="1649389770844" duration="7495000" />
       <workItem from="1649469478541" duration="17000" />
       <workItem from="1649478533590" duration="12487000" />
-      <workItem from="1649498063250" duration="3184000" />
+      <workItem from="1649498063250" duration="4408000" />
+      <workItem from="1649504707298" duration="7455000" />
+      <workItem from="1649577266675" duration="754000" />
+      <workItem from="1649578042760" duration="48000" />
+      <workItem from="1649578104009" duration="12968000" />
+      <workItem from="1649735576009" duration="1700000" />
+      <workItem from="1649747921995" duration="18363000" />
+      <workItem from="1649835564124" duration="21971000" />
     </task>
     <servers />
   </component>

@@ -12,11 +12,29 @@ import {useEffect, useState} from "react";
 import {fetchGet, jobsUrl} from "../../requestAddress";
 
 const ProcedureItem = (props) => {
-    const {name,status} = props
+    const {name,desc,status} = props;
+    const [isHover,setIsHover] = useState(false);
+
     return (
-        <span style={{display:'inline-block',width:30,textAlign:"center",}}>
-            {name}
-        </span>
+       <div style={{display:'inline-block',height:40,lineHeight:'40px',position:"relative"}}>
+            <span style={{display:'inline-block',width:50,height:40,textAlign:"center",
+                overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',cursor:"pointer",
+                lineHeight:'40px'
+            }}
+                onMouseOver={() => setIsHover(true)}
+                  onMouseOut={() => setIsHover(false)}
+            >
+                {desc}
+            </span>
+           {/*<span style={{display:"inline-block",height:40,lineHeight:'40px'}}>,</span>*/}
+           {
+               isHover ? (
+                   <p style={{position:'absolute',top:-50,left:(-desc.split('').length*10),textAlign:'center',height:30,width:(desc.split('').length*20),backgroundColor:'rgba(100,94,94,0.8)',padding:5}}>
+                        {desc}
+                    </p>
+               ) : null
+           }
+       </div>
     )
 }
 export function Management() {
@@ -51,7 +69,7 @@ export function Management() {
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } ,height:50,backgroundColor:'#eee'}}
                                 >
                                     <TableCell component="th" scope="row" style={{color:'black'}}  align="center">
-                                        {job.name}
+                                        {job.desc}
                                     </TableCell>
                                     <TableCell align="center" style={{color:'black'}}>
                                         {

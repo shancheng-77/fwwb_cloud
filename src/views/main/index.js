@@ -10,6 +10,7 @@ import {router} from "../../router";
 import {createContext, useContext, useEffect, useReducer, useState} from "react";
 import {Snackbar} from "@mui/material";
 import {fetchGet, historyOrderUrl, noticeWebSocket, orderWebSocket} from "../../requestAddress";
+import Button from "@mui/material/Button";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -67,12 +68,12 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 export function Main() {
     // 获取页面初始tab
     const location = useLocation();
+    const navigate = useNavigate();
     const initSelectedTab = () => {
       const index =  router.findIndex(n => n.path === location.pathname)
-        return index === 2 ? 1 : index;
+        return [2,3].includes(index) ? 1 : index;
     }
     const [value, setValue] = React.useState(() => initSelectedTab());
-    const navigate = useNavigate();
     const handleChange = (event, newValue) => {
         // console.log()
         setValue(newValue === 2 ? 1 : newValue);
@@ -95,11 +96,11 @@ export function Main() {
         return () => {
             socket.close()
         }
-    })
+    },[])
 
     return (
         <Box sx={{ width: '100%',minWidth:1200 }} style={{backgroundColor:'#1b2836'}}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider',backgroundColor:'#283A4D'}} >
+            <Box sx={{ borderBottom: 1, borderColor: 'divider',backgroundColor:'#283A4D',position:'relative'}} >
                 <Tabs value={value} onChange={handleChange} centered
                       aria-label="basic tabs example"
                       style={{height:60,lineHeight:60}}
@@ -115,6 +116,10 @@ export function Main() {
                         })
                     }
                 </Tabs>
+                <Button style={{position:"absolute",top:15,right:20}}
+                        variant="outlined"
+                        onClick={() => navigate('/login')}
+                >退出登录</Button>
             </Box>
             <Box sx={{height:620,padding:'20px 50px',backgroundColor:'#162330',display:'flex',justifyContent:'center'}}>
                <Box sx={{width:1100}}>

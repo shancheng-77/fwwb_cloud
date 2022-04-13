@@ -1,4 +1,5 @@
 const baseUrl = '192.168.0.100:8083' ;
+
 export const automaticUrl = 'http://'+baseUrl + '/orders/automatic';
 export const manualUrl ='http://'+ baseUrl + '/orders/manual';
 export const historyOrderUrl = 'http://'+ baseUrl + '/orders/history';
@@ -6,11 +7,17 @@ export const edgesUrl = 'http://' + baseUrl + '/edges';
 export const jobsUrl = 'http://' + baseUrl + '/jobs';
 export const logUrl = 'http://' + baseUrl + '/operationLogs'
 export const allErrorsUrl = 'http://' + baseUrl + '/device/errors'
+export const orderMappingUrl = 'http://' + baseUrl + '/jobs/mapping'
+export const sendErrorUrl = 'http://' + baseUrl + '/edge/device/error'
+export const historyEdgeOrderUrl = (edgeName) =>  'http://' + baseUrl + '/edge/tasks/history?edgeName='+edgeName
+
 
 const userId = Math.floor(Math.random()*10)
 export const orderWebSocket = 'ws://'+baseUrl+'/order/'+userId;
 export const edgeWebSocket = 'ws://'+baseUrl+'/edge/'+userId;
 export const noticeWebSocket = 'ws://'+baseUrl+'/notice/'+userId;
+export const edgeOrderWebSocket = (edgeName) =>  'ws://'+baseUrl+'/edge/tasks/'+edgeName+'/'+userId
+
 export const fetchPost = async (url,data) => {
     const response =  await fetch(url,{
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
