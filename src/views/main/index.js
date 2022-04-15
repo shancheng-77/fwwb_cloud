@@ -49,6 +49,7 @@ export const sendMessage = (param) => ({type:'message',payload:param})
 function reducer(state, action) {
     const {type,payload} = action;
     if (type === 'message')  {
+        console.log(payload)
        return payload
     }
     else {
@@ -91,7 +92,7 @@ export function Main() {
         socket.addEventListener('message', function (event) {
             let data = JSON.parse(event.data)
             dispatch(sendMessage({open:true,message:data.payload,type:'success'}))
-            // console.log(data)
+            console.log(data)
         });
         return () => {
             socket.close()

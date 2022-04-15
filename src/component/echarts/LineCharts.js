@@ -8,12 +8,16 @@ const  defaultData =  [
     { value: 4, name: '其他故障' },
 ]
 
-export function CateGoryCharts({style,data={},width=150,height=150}) {
+export function LineCharts({style,data={},width=150,height=150,wsData}) {
 
+
+    useEffect(() => {
+        console.log(data)
+    },[data])
     // const [progress,setProgress] = useState(schedule)
     const [dom,setDom ]= useState(null)
     const [mycharts,setMycharts] = useState(null)
-    const chartsId = 'chart'+Date.now()
+    const chartsId = 'chart'+Date.now()+Math.random()
     let chartDom = null;
 
     useEffect(() => {
@@ -22,12 +26,14 @@ export function CateGoryCharts({style,data={},width=150,height=150}) {
         // setProgress(schedule)
     },[])
     useEffect(() => {
-        const xData = data.map(n => n.name?.split('::')[1])
-        const yData = data.map(n => n.utilization*100)
         const option = {
             xAxis: {
                 type: 'category',
-                data: xData
+                data: data.map(n => n.name)
+            },
+            yAxis: {
+                max:100,
+                type: 'value'
             },
             grid: {
                 top:30,
@@ -35,17 +41,14 @@ export function CateGoryCharts({style,data={},width=150,height=150}) {
                 right:50,
                 bottom:50
             },
-            yAxis: {
-                max: 100,
-                type: 'value'
-            },
             series: [
                 {
-                    data: yData,
-                    type: 'bar'
+                    data: data.map(n => n.utilization*100),
+                    type: 'line'
                 }
             ]
         };
+        console.log(data)
         mycharts?.setOption(option)
     },[data,mycharts])
 
@@ -54,12 +57,14 @@ export function CateGoryCharts({style,data={},width=150,height=150}) {
             // console.log(chartDom)
             const myChart = echarts.init(chartDom);
             myChart.resize({ height,width })
-            const xData = data.map(n => n.name?.split('::')[1])
-            const yData = data.map(n => n.utilization*100)
             const option = {
                 xAxis: {
                     type: 'category',
-                    data: xData
+                    data: data.map(n => n.name)
+                },
+                yAxis: {
+                    max:100,
+                    type: 'value'
                 },
                 grid: {
                     top:30,
@@ -67,14 +72,10 @@ export function CateGoryCharts({style,data={},width=150,height=150}) {
                     right:50,
                     bottom:50
                 },
-                yAxis: {
-                    max: 100,
-                    type: 'value'
-                },
                 series: [
                     {
-                        data: yData,
-                        type: 'bar'
+                        data: data.map(n => n.utilization*100),
+                        type: 'line'
                     }
                 ]
             };

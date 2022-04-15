@@ -4,15 +4,17 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
-    FormControl, InputLabel, MenuItem, Select,
+    FormControl, InputLabel, MenuItem, Select, Snackbar,
     TextField
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import * as React from "react";
 import {InputWithLabel} from "../log/MyForm";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import Box from "@mui/material/Box";
 import {automaticUrl, fetchGet, fetchPost, jobsUrl, manualUrl} from "../../requestAddress";
+import {sendMessage, SnackbarContext} from "../../views/main";
+import {Alert} from "@mui/lab";
 
 const AutoDistribute = ({data,sendData,error,setError,name='任务安排',jobArr=[],jobNameArr=[]}) => {
 
@@ -136,7 +138,7 @@ const ManualDistribute = ({data,sendData,error,setError,jobArr,jobNameArr}) => {
 }
 
 
-export function AddOrderDialog1({open,setOpen}) {
+export function AddOrderDialog1({open,setOpen,setSOpen,setMessage}) {
 
     const [nameValue,setNameValue] = useState('')
     const [typeValue,setTypeValue] = useState('自动分配')
@@ -153,6 +155,7 @@ export function AddOrderDialog1({open,setOpen}) {
     const [decError,setDecError] = useState(false)
     const [autoError,setAutoError] = useState(false)
     const [manualError,setManualError] = useState(false)
+
 
     // 当分配方式更改后清除任务安排内容
     useEffect(() => {
@@ -233,8 +236,10 @@ export function AddOrderDialog1({open,setOpen}) {
         const data = typeValue === '自动分配' ? getAutoValue() : getManualValue()
         const url =  typeValue === '自动分配' ? automaticUrl : manualUrl
         const res = await fetchPost(url,[data])
-        // TODO 弹出完成的消息框
-        console.log(res)
+        if (res.code === 500) {
+            setSOpen(true)
+            setMessage(res.message)
+        }
     }
 
     return (
@@ -320,6 +325,7 @@ export function AddOrderDialog1({open,setOpen}) {
                     </Button>
                 </DialogActions>
             </Dialog>
+
         </>
     )
 }

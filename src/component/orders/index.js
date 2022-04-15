@@ -6,11 +6,12 @@ import {getTime, initTime, MyTable} from "./MyTable";
 import {AddOrderDialog1} from "./AddOrderDialog1";
 import {fetchGet, historyOrderUrl, orderWebSocket} from "../../requestAddress";
 import {OrderItem} from "./orderItem";
-import {CircularProgress} from "@mui/material";
+import {CircularProgress, Snackbar} from "@mui/material";
 import addOrderImg from '../../static/增加添加加号.png'
 import {ProgressBarChart} from "../echarts/ProgressBarChart";
 import {sendMessage, SnackbarContext} from "../../views/main";
 import {Loading} from '../loading'
+import {Alert} from "@mui/lab";
 const fixed = (number) => {
     return parseFloat(number.toFixed(3))
 }
@@ -23,6 +24,11 @@ export function Orders() {
     const [selectedOrderId,setSelectedOrderId] = useState('');
 
     const [openList,setOpenList] = useState([])
+
+    // 弹出窗
+    const [sopen,setSOpen] = useState(false);
+    const [message,setMessage] = useState('hello')
+
 
     // 订单列表数据数据
     const getOrderList = useCallback(() => {
@@ -53,7 +59,7 @@ export function Orders() {
         const socket = new WebSocket(orderWebSocket);
         socket.addEventListener('message', function (event) {
             let data = JSON.parse(event.data)
-            // console.log(event.data)
+            console.log(event.data)
             if (data.code === 500) {
                 dispatch(sendMessage({open:true,message:data.message,type:'error'}))
             }
@@ -67,7 +73,7 @@ export function Orders() {
                 })
             }
             setPendingOrderList(data.payload);
-            setSelectedOrderId(data.payload[0]?.taskCode)
+            setSelectedOrderId( data.payload[0]?.taskCode)
             setShowOrderInfo(data.payload[0]);
         });
         return () => {
@@ -143,7 +149,21 @@ export function Orders() {
                    </div>
                </Box>
            </Box>
-           <AddOrderDialog1 open={isAddOrderDialogOpen} setOpen={(bol) => setIsAddOrderDialogOpen(bol)}/>
+           <AddOrderDialog1 open={isAddOrderDialogOpen} setOpen={(bol) => setIsAddOrderDialogOpen(bol)}
+                             setSOpen={setSOpen} setMessage={setMessage}/>
+
+           <Snackbar
+               anchorOrigin={{ vertical:'top', horizontal:'right' }}
+               open={sopen}
+               onClose={() => setSOpen(false)}
+               autoHideDuration={3000}
+               message={message}
+               key={1}
+           >
+               <Alert  severity={'error'} sx={{ width: '100%' }}>
+                   {message}
+               </Alert>
+           </Snackbar>
        </>
     )
 }

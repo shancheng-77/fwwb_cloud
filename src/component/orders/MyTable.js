@@ -84,7 +84,7 @@ const Row = (props) => {
     }
     const nameValue = getChineseName(row,orderMapping)
     // useEffect(() => {
-    //     console.log(getChineseName(row,orderMapping))
+    //     console.log('row',row)
     // },[row,orderMapping])
 
     const open = openList.includes(index)
@@ -128,7 +128,7 @@ const Row = (props) => {
                                             <TableCell  align="center" >名称</TableCell>
                                             <TableCell  align="center" >状态</TableCell>
                                             <TableCell  align="center" >花费时间</TableCell>
-                                            <TableCell  align="center" >执行设备名称</TableCell>
+                                            <TableCell  align="center" >执行设备</TableCell>
                                             <TableCell  align="center" >开始时间</TableCell>
                                             <TableCell  align="center" >终止时间</TableCell>
                                         </TableRow>

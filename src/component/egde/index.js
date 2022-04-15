@@ -5,6 +5,7 @@ import {EdgeItem} from "./EdgeItem";
 import {useEffect, useState} from "react";
 import {edgesUrl, edgeWebSocket, fetchGet, orderWebSocket} from "../../requestAddress";
 import {GanttCharts} from "../echarts/GanttCharts";
+import {Loading} from "../loading";
 
 const getRandom = () => {
     return Math.floor(Math.random()*100+1)
@@ -41,8 +42,9 @@ export function Edge() {
 
     return (
         <Box sx={{width:'100%',height:554,overflowY:'auto',backgroundColor:'#AFBED0',padding:1, borderRadius:1}}>
-            <Grid container rowSpacing={2} columnSpacing={2} >
+            <Grid container rowSpacing={2} columnSpacing={2} style={{height:570}}>
                 {
+                    edgeData.length == 0 ? <Loading/> :
                     edgeData.map((d,i) => {
                         return (
                             <Grid item xs={4} key={i}>

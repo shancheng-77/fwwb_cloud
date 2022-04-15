@@ -26,6 +26,7 @@ import {InputWithLabel} from "../log/MyForm";
 import {edgeWebSocket, fetchPost, sendErrorUrl} from "../../requestAddress";
 import {sendMessage, SnackbarContext} from "../../views/main";
 import {CateGoryCharts} from "../echarts/CateGoryCharts";
+import {LineCharts} from "../echarts/LineCharts";
 
 const errTypeObject = {
     "程序故障":0,
@@ -43,7 +44,10 @@ export function Equipment() {
     const [errMessageValue,setErrMessageValue] = useState('');
     const [errType,setErrType] = useState('')
     const [isOpen,setIsOpen] = useState(false);
-    const [edgeData,setEdgeData] = useState([])
+    const [edgeData,setEdgeData] = useState([]);
+
+    const [wsData,setWsData] = useState([])
+    const [lineData,setLineData] = useState([])
     const {dispatch} = useContext(SnackbarContext)
 
     const clickError = () => {
@@ -78,10 +82,13 @@ export function Equipment() {
     }
     // 从websocket获取最新的数据
     useEffect(() => {
+        const arr = []
         const socket = new WebSocket(edgeWebSocket);
         socket.addEventListener('message', function (event) {
             let data = JSON.parse(event.data).payload
-            // console.log(data)
+            // console.log([...wsData)
+            arr.push(data[state.edgeName].deviceTable.devices)
+            setWsData(arr)
             setDevices(data[state.edgeName].deviceTable.devices)
             // setEdgeData(Object.values(data.payload))
         });
@@ -89,7 +96,18 @@ export function Equipment() {
             socket.close()
         }
     },[])
-
+    // 设置折线图数据
+    useEffect(() => {
+        const arr = wsData
+            .map(n => n.filter(a => a.name === selectedEquipment.name))
+            .flat(1)
+            .map(n => ({
+                name: n.name,
+                utilization: n.utilization
+            })).filter(n => n.utilization !== 0).slice(0,7)
+        console.log(arr,'arr')
+        setLineData(arr)
+    },[wsData,selectedEquipment])
     return (
         <>
             <Box display="grid" gridTemplateColumns="repeat(12, 1fr)"  style={{height:570}} gap={2}>
@@ -107,7 +125,7 @@ export function Equipment() {
                             <img src={errorImg} width={30}/> <span>故障</span>
                         </div>
                     </div>
-                    <Box style={{height:330,overflowY:"auto",overflowX:'hidden'}}>
+                    <Box style={{height:300,overflowY:"auto",overflowX:'hidden'}}>
                         <Grid container rowSpacing={1} columnSpacing={2} >
                             {
                                 devices.map((d,i) => {
@@ -125,11 +143,12 @@ export function Equipment() {
                         </Grid>
                     </Box>
                     <Box style={{borderTop:'2px solid black'}}>
+                        <div style={{backgroundColor:'rgb(48 63 81)',paddingLeft:10,color:'#eee',marginTop:10,width: 690,textAlign:"left",height:30,lineHeight:'30px',fontSize:14}}>各个设备利用率</div>
                         <CateGoryCharts width={700} height={200} data={devices}/>
                     </Box>
                 </Box>
-                <Box gridColumn="span 4"  style={{backgroundColor:'#AFBED0',padding:10, borderRadius:5}}>
-                    <Box style={{height:400,display:"flex",justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
+                <Box gridColumn="span 4"  style={{backgroundColor:'#AFBED0',padding:10, borderRadius:5,overflow:'hidden'}}>
+                    <Box style={{height:355,display:"flex",justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
                         <div style={{backgroundColor:'#eee',padding:5}}>
                             <img width={100} src={imgUrl}/>
                         </div>
@@ -141,17 +160,17 @@ export function Equipment() {
                                 <p style={{color:'#020202'}}>设备名称：</p>
                                 <p style={{color:'#020202'}}>设备状态：</p>
                                 <p style={{color:'#020202'}}>设备利用率：</p>
-                                <p style={{color:'#020202'}}>其他属性：</p>
-                                <p style={{color:'#020202'}}>其他属性：</p>
                             </div>
                             <div>
                                 <p style={{color:'#020202'}}>{selectedEquipment?.name || '--'}</p>
                                 <p style={{color:'#020202'}}>{selectedEquipment?.status || '--'}</p>
                                 <p style={{color:'#020202'}}>{initUtilization(selectedEquipment?.utilization || 0)}</p>
-                                <p style={{color:'#020202'}}>--</p>
-                                <p style={{color:'#020202'}}>--</p>
                             </div>
                         </div>
+                    </Box>
+                    <Box >
+                        <div style={{backgroundColor:'rgb(48 63 81)',paddingLeft:10,color:'#eee',marginTop:10,width:325,textAlign:"left",height:30,lineHeight:'30px',fontSize:14}}>设备历史利用率</div>
+                        <LineCharts width={350} height={200} data={lineData} />
                     </Box>
                 </Box>
             </Box>

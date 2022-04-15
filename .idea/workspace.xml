@@ -3,22 +3,22 @@
   <component name="ChangeListManager">
     <list default="true" id="68847c59-4737-4cc5-94e0-684b7ad7c8ae" name="变更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AppWithRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppWithRouter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/echarts/PieCharts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/echarts/PieCharts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/echarts/ProgressBarChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/echarts/ProgressBarChart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/egde/EdgeItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/egde/EdgeItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/echarts/CateGoryCharts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/echarts/CateGoryCharts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/echarts/GanttCharts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/echarts/GanttCharts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/edgeOrder/EdgeOrderItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/edgeOrder/EdgeOrderItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/edgeOrder/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/edgeOrder/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/egde/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/egde/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/emergency/emergency.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/emergency/emergency.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/equipment/EquipmentItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/equipment/EquipmentItem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/equipment/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/equipment/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/log/MyForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/log/MyForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/log/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/log/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/management/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/management/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/orders/AddOrderDialog1.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/orders/AddOrderDialog1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/orders/MyTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/orders/MyTable.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/orders/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/orders/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/requestAddress/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/requestAddress/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/关机off.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/static/关机off.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/等待.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/static/等待.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/static/进行中.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/static/进行中.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/main/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -137,7 +137,9 @@
       <workItem from="1649578104009" duration="12968000" />
       <workItem from="1649735576009" duration="1700000" />
       <workItem from="1649747921995" duration="18363000" />
-      <workItem from="1649835564124" duration="21971000" />
+      <workItem from="1649835564124" duration="23119000" />
+      <workItem from="1649903812662" duration="18217000" />
+      <workItem from="1649996925595" duration="787000" />
     </task>
     <servers />
   </component>

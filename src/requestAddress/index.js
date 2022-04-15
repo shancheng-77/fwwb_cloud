@@ -1,3 +1,6 @@
+import {useContext} from "react";
+import {sendMessage, SnackbarContext} from "../views/main";
+
 const baseUrl = '192.168.0.100:8083' ;
 
 export const automaticUrl = 'http://'+baseUrl + '/orders/automatic';
@@ -18,6 +21,8 @@ export const edgeWebSocket = 'ws://'+baseUrl+'/edge/'+userId;
 export const noticeWebSocket = 'ws://'+baseUrl+'/notice/'+userId;
 export const edgeOrderWebSocket = (edgeName) =>  'ws://'+baseUrl+'/edge/tasks/'+edgeName+'/'+userId
 
+
+
 export const fetchPost = async (url,data) => {
     const response =  await fetch(url,{
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -33,6 +38,8 @@ export const fetchPost = async (url,data) => {
         body: JSON.stringify(data)
     })
     return await response.json()
+
+
 }
 export const fetchGet = async (url) => {
     const response =  await fetch(url)
