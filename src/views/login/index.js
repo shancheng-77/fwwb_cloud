@@ -18,7 +18,7 @@ export function Login() {
     }
     return (
         <>
-            <div style={{width:'100%',height:680,display:"flex",justifyContent:"center",alignItems:'center',backgroundColor:'#1b2836',flexDirection:"column"}}>
+            <div style={{width:'100%',height:720,display:"flex",justifyContent:"center",alignItems:'center',backgroundColor:'#1b2836',flexDirection:"column"}}>
                 <img style={{marginBottom:30}} src={logoImgUrl} width={180}/>
                 <div>
                     <InputWithLabel name={'账户'} style={{color:'#eee',width:300}}>

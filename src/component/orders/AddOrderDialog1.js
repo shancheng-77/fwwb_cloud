@@ -122,15 +122,15 @@ const ManualDistribute = ({data,sendData,error,setError,jobArr,jobNameArr}) => {
                 jobArr={jobArr}
                 jobNameArr={jobNameArr}
             />
-            <AutoDistribute
-                data={edge1Data}
-                sendData={setEdge1Data}
-                error={error1}
-                setError={setError1}
-                name='Edge1'
-                jobArr={jobArr}
-                jobNameArr={jobNameArr}
-            />
+            {/*<AutoDistribute*/}
+            {/*    data={edge1Data}*/}
+            {/*    sendData={setEdge1Data}*/}
+            {/*    error={error1}*/}
+            {/*    setError={setError1}*/}
+            {/*    name='Edge1'*/}
+            {/*    jobArr={jobArr}*/}
+            {/*    jobNameArr={jobNameArr}*/}
+            {/*/>*/}
             {/*<AutoDistribute data={edge1Data} sendData={setEdge1Data} error={error2} setError={setError2} name='Edge1'/>*/}
             {/*<AutoDistribute data={edge2Data} sendData={setEdge2Data} error={error3} setError={setError3} name='Edge0'/>*/}
         </Box>
@@ -224,6 +224,9 @@ export function AddOrderDialog1({open,setOpen,setSOpen,setMessage}) {
                 orderName: nameValue,
                 orderDesc: decValue,
                 jobNames: autoData
+                // jobNames: ["job0__0",
+                //     "job1__0",
+                //     "job2__0"]
             }
         }
         const getManualValue = () => {
@@ -231,6 +234,11 @@ export function AddOrderDialog1({open,setOpen,setSOpen,setMessage}) {
                 orderName: nameValue,
                 orderDesc: decValue,
                 edgeJobNames: manualData
+                // edgeJobNames: {
+                //     edge0:  ["job0__0",
+                //         "job1__0",
+                //         "job2__0"]
+                // }
             }
         }
         const data = typeValue === '自动分配' ? getAutoValue() : getManualValue()
