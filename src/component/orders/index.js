@@ -59,7 +59,7 @@ export function Orders() {
         const socket = new WebSocket(orderWebSocket);
         socket.addEventListener('message', function (event) {
             let data = JSON.parse(event.data)
-            console.log(event.data)
+            // console.log(event.data)
             if (data.code === 500) {
                 dispatch(sendMessage({open:true,message:data.message,type:'error'}))
             }

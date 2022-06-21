@@ -6,10 +6,11 @@ import {useEffect, useState} from "react";
 import {edgesUrl, edgeWebSocket, fetchGet, orderWebSocket} from "../../requestAddress";
 import {GanttCharts} from "../echarts/GanttCharts";
 import {Loading} from "../loading";
-
+// 获取随机数（忘了做什么用了）
 const getRandom = () => {
     return Math.floor(Math.random()*100+1)
 }
+// 之前是模拟数据使用，现在无用
 const getData = (length) => {
     return Array(length).fill(0).map((n,i) => ({
         title: 'Edge'+i,
@@ -22,8 +23,8 @@ const getData = (length) => {
 
 export function Edge() {
     // const edgeData = getData(10);
-    const [edgeData,setEdgeData] = useState([]);
-    const [errorNumber,setErrorNumber] = useState([])
+    const [edgeData,setEdgeData] = useState([]); // 边端数据
+    const [errorNumber,setErrorNumber] = useState([]) // 各个边端中故障机器的数量
     // 请求节点数据
     useEffect(() => {
         const socket = new WebSocket(edgeWebSocket);

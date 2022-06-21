@@ -14,8 +14,9 @@ import {AddJob} from "./AddJob";
 import {AddProcess} from "./AddProcess";
 
 const ProcedureItem = (props) => {
-    const {name,desc,status} = props;
-    const [isHover,setIsHover] = useState(false);
+
+    const {name,desc,status} = props; // 获取名称、描述、状态
+    const [isHover,setIsHover] = useState(false); // 当鼠标覆盖时高亮
 
     return (
        <div style={{display:'inline-block',height:40,lineHeight:'40px',position:"relative"}}>
@@ -40,9 +41,9 @@ const ProcedureItem = (props) => {
     )
 }
 export function Management() {
-    const [jobData,setJobData] = useState([]);
-    const [isJobDialogOpen,setIsJobDialogOpen] = useState(false)
-    const [isProcessDialogOpen,setIsProcessDialogOpen] = useState(false)
+    const [jobData,setJobData] = useState([]); 
+    const [isJobDialogOpen,setIsJobDialogOpen] = useState(false) 
+    const [isProcessDialogOpen,setIsProcessDialogOpen] = useState(false) 
     // 请求数据
     useEffect(() => {
         fetchGet(jobsUrl).then(({payload}) => {

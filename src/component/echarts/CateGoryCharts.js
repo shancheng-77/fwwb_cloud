@@ -7,7 +7,7 @@ const  defaultData =  [
     { value: 5, name: '机械故障' },
     { value: 4, name: '其他故障' },
 ]
-
+// echarts的包装组件
 export function CateGoryCharts({style,data={},width=150,height=150}) {
 
     // const [progress,setProgress] = useState(schedule)
@@ -15,12 +15,13 @@ export function CateGoryCharts({style,data={},width=150,height=150}) {
     const [mycharts,setMycharts] = useState(null)
     const chartsId = 'chart'+Date.now()
     let chartDom = null;
-
+    
     useEffect(() => {
         chartDom = document.getElementById(chartsId);
         setDom(chartDom)
         // setProgress(schedule)
     },[])
+    // 数据或dom修改时重新渲染
     useEffect(() => {
         const xData = data.map(n => n.name?.split('::')[1])
         const yData = data.map(n => n.utilization*100)
@@ -83,6 +84,7 @@ export function CateGoryCharts({style,data={},width=150,height=150}) {
         }
         // console.log(chartDom)
     },[chartDom,data])
+    
     return (
         <>
             <div style={{...style}} id={chartsId}/>

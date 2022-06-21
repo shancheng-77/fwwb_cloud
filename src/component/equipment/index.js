@@ -36,19 +36,20 @@ const errTypeObject = {
 }
 
 export function Equipment() {
-    const {state} = useLocation();
-    const [devices,setDevices] = useState(state.deviceTable.devices);
+    const {state} = useLocation();// url中携带的参数
 
-    const [selectedEquipment,setSelectedEquipment] = useState({});
+    const [devices,setDevices] = useState(state.deviceTable.devices); // 设备信息
 
-    const [errMessageValue,setErrMessageValue] = useState('');
-    const [errType,setErrType] = useState('')
-    const [isOpen,setIsOpen] = useState(false);
+    const [selectedEquipment,setSelectedEquipment] = useState({}); // 选中的设备
+
+    const [errMessageValue,setErrMessageValue] = useState(''); // 错误信息
+    const [errType,setErrType] = useState('') // 错误类型
+    const [isOpen,setIsOpen] = useState(false); // 是否打开
     const [edgeData,setEdgeData] = useState([]);
 
-    const [wsData,setWsData] = useState([])
-    const [lineData,setLineData] = useState([])
-    const {dispatch} = useContext(SnackbarContext)
+    const [wsData,setWsData] = useState([]) // websocket传输的数据
+    const [lineData,setLineData] = useState([]) // 折线图数据
+    const {dispatch} = useContext(SnackbarContext) // 全局提示
 
     const clickError = () => {
         if (!selectedEquipment.name) {
@@ -61,6 +62,7 @@ export function Equipment() {
         setErrType('');
         setErrMessageValue('')
     }
+    // 发送错误信息
     const sendErrMessage = async () => {
         const data = new FormData();
         data.append('edgeName',state.edgeName);

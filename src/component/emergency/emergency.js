@@ -17,7 +17,7 @@ import {initTime} from "../orders/MyTable";
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
 }
-
+// 假数据
 const rows = [
     {
         "id": 1,
@@ -40,7 +40,7 @@ const rows = [
         "operatedBy": "王明"
     }
 ];
-
+// 将错误信息对象转为数组
 const errObjectToArr = (object) => {
     return Object.keys(object).map((k, i) => {
         return object[k].map((n => {
@@ -51,12 +51,14 @@ const errObjectToArr = (object) => {
         }))
     }).flat(1)
 }
+// 故障类型Map
 const errTypeObject = {
     PROGRAM :'程序故障',
     ELECTRIC :'电气故障',
     MACHINE : '机械故障',
     OTHER :'其他故障'
 }
+// 初始化echarts数据
 const initChartsData = (data=[]) => {
     const o = {}
     data.forEach((n) => {

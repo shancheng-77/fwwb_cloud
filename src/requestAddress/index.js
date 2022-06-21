@@ -1,7 +1,7 @@
 import {useContext} from "react";
 import {sendMessage, SnackbarContext} from "../views/main";
 
-const baseUrl = '101.34.238.164:8083' ;
+const baseUrl = '124.220.15.37:8083' ;
 
 export const automaticUrl = 'http://'+baseUrl + '/orders/automatic';
 export const manualUrl ='http://'+ baseUrl + '/orders/manual';

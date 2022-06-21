@@ -11,7 +11,7 @@ import {edgeOrderWebSocket, fetchGet, historyEdgeOrderUrl, historyOrderUrl, orde
 import {sendMessage, SnackbarContext} from "../../views/main";
 import {EdgeOrderItem} from "./EdgeOrderItem";
 import {Loading} from "../loading";
-
+// 为每一个订单生成唯一颜色
 const getJobColor = (edgeOrderData) => {
     const proceduresMap = edgeOrderData?.procedureTable?.proceduresMap || {}
 
@@ -30,17 +30,21 @@ const getJobColor = (edgeOrderData) => {
         [n] : getColor()
     })).reduce((a,b) => ({...a,...b}),{});
 }
+// 边端订单组件
 export function EdgeOrder() {
-    const [pendingEdgeOrder,setPendingEdgeOrder] = useState([]);
-    const [historyEdgeOrder,setHistoryEdgeOrder] = useState([]);
-    const [selectedItemInfo,setSelectedItemInfo] = useState({});
-    const [selectedItemID,setSelectedItemId] = useState('');
-    const [isChart,setIsChart] = useState(true);
+    const [pendingEdgeOrder,setPendingEdgeOrder] = useState([]); // 进行中中订单
+    const [historyEdgeOrder,setHistoryEdgeOrder] = useState([]); // 历史订单
+    const [selectedItemInfo,setSelectedItemInfo] = useState({}); // 选中订单信息
+    const [selectedItemID,setSelectedItemId] = useState(''); // 选中订单id
+    const [isChart,setIsChart] = useState(true); // 是否展示图表（订单正在等待态不加载甘特图）
 
-    const [jobColor,setJobColor] = useState({});
-    const [progress,setProgress] = useState(0)
-    const {state} = useLocation();
-    const {dispatch} = useContext(SnackbarContext)
+    const [jobColor,setJobColor] = useState({}); // 订单中各个工序在甘特图中的颜色
+    const [progress,setProgress] = useState(0) // 环形进度条
+
+    const {state} = useLocation(); // 路由相关
+
+    const {dispatch} = useContext(SnackbarContext) // 全局消息提示
+    // 根据订单中任务完成数量计算订单进度
     const getOrderProgress = (orderInfo) => {
         const proceduresMap = orderInfo?.procedureTable?.proceduresMap || {};
         const arr = Object.values(proceduresMap).map(n => {
@@ -51,12 +55,15 @@ export function EdgeOrder() {
     }
     // websocket
     useEffect(() => {
+        // 获取边端订单的url
         const url = edgeOrderWebSocket(state.edgeName)
+        // 开启websocket 
         const socket = new WebSocket(url);
         let job = {}
         socket.addEventListener('message', function (event) {
             let data = JSON.parse(event.data)
             // console.log(data)
+            // 后台报错的情况
             if (data.code === 500) {
                 dispatch(sendMessage({open:true,message:data.message,type:'error'}))
             }
@@ -73,8 +80,9 @@ export function EdgeOrder() {
                 }
                 // 不显示甘特图
                 setIsChart(data.payload[0]?.taskStatus === 'PROCESSING')
-
+                
                 setPendingEdgeOrder(data.payload);
+                // 默认选中第一个订单 
                 setSelectedItemId(data.payload[0]?.taskCode)
                 setSelectedItemInfo(data.payload[0]);
 
@@ -92,14 +100,16 @@ export function EdgeOrder() {
         }
     },[])
 
+    // 设置选中订单的进度
     useEffect(() => {
         setProgress(() => getOrderProgress(selectedItemInfo))
     },[selectedItemInfo])
+
     // 在页面初始化时候请求历史订单数据
     useEffect(() => {
         fetchGet(historyEdgeOrderUrl(state.edgeName)).then((res) => {
             const data = res.payload.reverse();
-
+            // 对数据初始化
             setIsChart(true)
             setHistoryEdgeOrder(data)
             setSelectedItemInfo(data[0]);
@@ -107,10 +117,10 @@ export function EdgeOrder() {
         })
     },[])
 
-    useEffect(() => {
-        console.log(getEdgeOrderList())
-    },[pendingEdgeOrder,historyEdgeOrder])
-
+    // useEffect(() => {
+    //     console.log(getEdgeOrderList())
+    // },[pendingEdgeOrder,historyEdgeOrder])
+    // 将正在进行订单与历史订单组合为全部订单
     const getEdgeOrderList = useCallback(() => {
         return [
             ...pendingEdgeOrder,

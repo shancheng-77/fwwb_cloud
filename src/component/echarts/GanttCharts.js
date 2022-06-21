@@ -1,13 +1,14 @@
 import * as echarts from 'echarts';
 import {useEffect, useState} from "react";
 import {initTime} from "../orders/MyTable";
-
+// 模拟生成rgb颜色
 export const getColor  = () => {
     const numone=parseInt(Math.random()*(255+1),10);
     const numtwo=parseInt(Math.random()*(255+1),10);
     const numthree=parseInt(Math.random()*(255+1),10);
     return 'rgb('+numone+','+numtwo+','+numthree+')'
 }
+// 单例模式，后续好像没有用到
 let Color = function(color) {
     this.color = color;
     this.instance = null;
@@ -24,7 +25,6 @@ Color.getInstance = function(color) {
 
 
 //产生模拟数据
-
 //设定图形效果
 function renderItem(params, api) {
     // console.log(api,params)
@@ -151,9 +151,7 @@ const getOption = (startTime,categories,data) => (
 )
 
 export function GanttCharts({style,width=150,height=150,orderData={},jobColors={}}) {
-
-
-
+    // 此处是数据初始化，将后台返回的数据整合为甘特图所需的数据
     const initEdgeOrderData = (edgeOrderData) => {
         const proceduresMap = edgeOrderData?.procedureTable?.proceduresMap || {}
         const parallelProcedures = edgeOrderData?.parallelProcedures || {};
@@ -178,6 +176,7 @@ export function GanttCharts({style,width=150,height=150,orderData={},jobColors={
                 })
             }
         }).reduce((a,b) => ({...a,...b}),{})
+
         return {
             jobArr,dataWithStatus
         }
@@ -188,6 +187,7 @@ export function GanttCharts({style,width=150,height=150,orderData={},jobColors={
 
     ];
     const startTime = (new Date(orderData.taskStartTime)).getTime();
+    // 初始化数据
     const initData = (types,startTime,orderData) => {
         const {jobArr=[],dataWithStatus={}} = Object.keys(orderData).length !== 0 ?  initEdgeOrderData(orderData) : {jobArr:[],dataWithStatus:{}}
 
@@ -258,6 +258,7 @@ export function GanttCharts({style,width=150,height=150,orderData={},jobColors={
         }
         // console.log( !dom)
     },[chartDom,orderData])
+    
     return (
         <>
             <div style={{...style}} id={chartsId}/>

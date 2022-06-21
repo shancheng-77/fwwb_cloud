@@ -38,12 +38,7 @@ TabPanel.propTypes = {
     value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
-}
+// 全局消息提示
 // 消息条相关
 export const sendMessage = (param) => ({type:'message',payload:param})
 function reducer(state, action) {
@@ -60,6 +55,7 @@ function reducer(state, action) {
        }
     }
 }
+// 使用useContext进行全局数据共享
 export const SnackbarContext = createContext({open:true,message:'hello'});
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -70,6 +66,7 @@ export function Main() {
     // 获取页面初始tab
     const location = useLocation();
     const navigate = useNavigate();
+    // 根据url中的信息来初始化导航
     const initSelectedTab = () => {
       const index =  router.findIndex(n => n.path === location.pathname)
         return [2,3].includes(index) ? 1 : index;
@@ -86,7 +83,7 @@ export function Main() {
         type:'',
         message :''
     })
-
+    // 维护消息提示的websocket请求
     useEffect(() => {
         const socket = new WebSocket(noticeWebSocket);
         socket.addEventListener('message', function (event) {
@@ -129,6 +126,7 @@ export function Main() {
                    </SnackbarContext.Provider>
                </Box>
             </Box>
+            {/* 全局信息提示 */}
             <Snackbar
                 anchorOrigin={{ vertical:'top', horizontal:'right' }}
                 open={snackbar.open}

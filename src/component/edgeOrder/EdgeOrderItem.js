@@ -3,7 +3,7 @@ import conductUrl from "../../static/进行中.png";
 import finishUrl from "../../static/完成.png";
 import * as React from "react";
 
-export function EdgeOrderItem({edgeOrderData,selected,setOrderID,setThisOrderInfo,setOrderId}) {
+export function EdgeOrderItem({edgeOrderData,selected,setOrderID,setThisOrderInfo}) {
     const {taskStatus: status = 'wait', taskCode = '**'} = edgeOrderData;
 
     const bgc = selected ? '#5276A6' : '#1F2D42';
@@ -19,6 +19,7 @@ export function EdgeOrderItem({edgeOrderData,selected,setOrderID,setThisOrderInf
         setOrderID(edgeOrderData.taskCode)
         setThisOrderInfo({...edgeOrderData})
     }
+
     return (
         <>
             <div style={{

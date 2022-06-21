@@ -44,7 +44,7 @@ export const initTime = (time) => {
         let date = new Date(time);
         let year = date.getFullYear();
         let month = a(date.getMonth()+1);
-        let day = a(date.getDay());
+        let day = a(date.getDate());
 
         let hour = a(date.getHours());
         let minutes = a(date.getMinutes());
